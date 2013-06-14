@@ -7,9 +7,13 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "ViewController.h"
 
-@interface AppDelegate : NSObject <NSApplicationDelegate>
+@interface AppDelegate : NSObject <NSApplicationDelegate>{
+  NSWindow *window;  
+}
 
-@property (assign) IBOutlet NSWindow *window;
+- (void)applicationWillFinishLaunching:(NSNotification *)aNotification;
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
 
 @end
