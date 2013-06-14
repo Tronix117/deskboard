@@ -14,14 +14,24 @@
 
 @implementation ViewController
 
-- (id)init
+/*- (id)init
 {
     self = [super init];
     if (self) {
-        self.view = [[View alloc] init];
+        
     }
     
     return self;
+}*/
+
+-(void)loadView {
+    View *view = [[View alloc] initWithFrame:CGRectMake(0, 0, 3000, 3000)];
+    view.viewController = self;
+    self.view = view;
+    [view viewDidLoad]; // dirty but button doesn't seems to work otherwise...
 }
 
+-(void)buttonPressed: (NSObject *) sender {
+    NSLog(@"Button pressed!");
+}
 @end

@@ -10,5 +10,5 @@
 #import "View.h"
 
 @interface ViewController : NSViewController
-
+-(void)buttonPressed:(NSObject *) sender;
 @end

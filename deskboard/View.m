@@ -23,22 +23,23 @@
 }*/
 
 - (void)drawRect:(NSRect)pRect {
-	[[NSColor clearColor] set];
+    NSURL *imageURL = [[NSWorkspace sharedWorkspace] desktopImageURLForScreen:[NSScreen mainScreen]];
+    NSImage *image = [[NSImage alloc] initWithContentsOfURL:imageURL];
+    self.wantsLayer = YES;
+    self.layer.contents = image;
 	NSRectFill( pRect );
-    
-	NSMutableDictionary *zDictAttributes = [[NSMutableDictionary alloc] init];
-	[zDictAttributes setObject:[NSFont fontWithName:@"Helvetica" size:60]
-                        forKey:NSFontAttributeName];
-	[zDictAttributes setObject:[NSColor yellowColor]
-                        forKey:NSForegroundColorAttributeName];
-	
-	NSPoint	zPoint;
-	zPoint.x	= 10.0;
-	zPoint.y	= 10.0;
-	
-	NSString *zString	= @"Hello word";
-   	
-	[zString drawAtPoint:zPoint withAttributes:zDictAttributes];
 }
 
+-(void)viewDidLoad {
+    NSButton *myButton = [[NSButton alloc] initWithFrame:NSMakeRect(100, 100, 130, 40)];
+    
+    [myButton setTitle: @"Button title!"];
+    [myButton setButtonType:NSMomentaryLightButton];
+    [myButton setBezelStyle:NSRoundedBezelStyle];
+    
+    [myButton setTarget: self.viewController];
+    [myButton setAction:@selector(buttonPressed:)];
+    
+    [self addSubview: myButton];
+}
 @end

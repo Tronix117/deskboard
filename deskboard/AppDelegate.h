@@ -13,7 +13,4 @@
   NSWindow *window;  
 }
 
-- (void)applicationWillFinishLaunching:(NSNotification *)aNotification;
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
-
 @end

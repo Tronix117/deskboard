@@ -7,7 +7,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "ViewController.h"
 
 @interface View : NSView
+
+@property (retain) NSViewController * viewController;
+
+- (void)viewDidLoad;
 
 @end
