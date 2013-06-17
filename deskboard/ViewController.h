@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "View.h"
+#import "LaunchpadDatabaseHelper.h"
 
 @interface ViewController : NSViewController
 -(void)buttonPressed:(NSObject *) sender;

@@ -14,15 +14,16 @@
 
 @implementation ViewController
 
-/*- (id)init
+- (id)init
 {
     self = [super init];
     if (self) {
-        
+        LaunchpadDatabaseHelper *launchpadHelper = [[LaunchpadDatabaseHelper alloc] init];
+        NSLog(@"%@", [launchpadHelper getApps]);
     }
     
     return self;
-}*/
+}
 
 -(void)loadView {
     View *view = [[View alloc] initWithFrame:CGRectMake(0, 0, 3000, 3000)];

@@ -32,5 +32,7 @@
 	<string>Copyright © 2013 Jeremy Trufier. All rights reserved.</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>LSUIElement</key>
+	<true/>
 </dict>
 </plist>
