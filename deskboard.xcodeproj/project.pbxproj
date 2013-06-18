@@ -12,7 +12,6 @@
 		FB04334F176B247C002EA25D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FB04334E176B247C002EA25D /* main.m */; };
 		FB043353176B247C002EA25D /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = FB043351176B247C002EA25D /* Credits.rtf */; };
 		FB043356176B247C002EA25D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FB043355176B247C002EA25D /* AppDelegate.m */; };
-		FB043370176B2B06002EA25D /* View.m in Sources */ = {isa = PBXBuildFile; fileRef = FB04336F176B2B06002EA25D /* View.m */; };
 		FB043373176B3D59002EA25D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB043372176B3D59002EA25D /* ViewController.m */; };
 		FB1A32C2176B9B070011BE33 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FB1A32C1176B9B070011BE33 /* libsqlite3.dylib */; };
 		FB1A34A4176B9BE00011BE33 /* db.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB1A32C4176B9BDF0011BE33 /* db.plist */; };
@@ -454,8 +453,6 @@
 		FB043352176B247C002EA25D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		FB043354176B247C002EA25D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FB043355176B247C002EA25D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		FB04336E176B2B06002EA25D /* View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = View.h; sourceTree = "<group>"; };
-		FB04336F176B2B06002EA25D /* View.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = View.m; sourceTree = "<group>"; };
 		FB043371176B3D59002EA25D /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		FB043372176B3D59002EA25D /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		FB1A32C1176B9B070011BE33 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -986,8 +983,6 @@
 			children = (
 				FB043354176B247C002EA25D /* AppDelegate.h */,
 				FB043355176B247C002EA25D /* AppDelegate.m */,
-				FB04336E176B2B06002EA25D /* View.h */,
-				FB04336F176B2B06002EA25D /* View.m */,
 				FB043371176B3D59002EA25D /* ViewController.h */,
 				FB043372176B3D59002EA25D /* ViewController.m */,
 				FB1A364D176B9C7D0011BE33 /* LaunchpadDatabaseHelper.h */,
@@ -2062,7 +2057,6 @@
 			files = (
 				FB04334F176B247C002EA25D /* main.m in Sources */,
 				FB043356176B247C002EA25D /* AppDelegate.m in Sources */,
-				FB043370176B2B06002EA25D /* View.m in Sources */,
 				FB043373176B3D59002EA25D /* ViewController.m in Sources */,
 				FB1A35BF176B9BE00011BE33 /* jquery.js in Sources */,
 				FB1A3608176B9BE00011BE33 /* search.js in Sources */,

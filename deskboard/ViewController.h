@@ -7,9 +7,17 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "View.h"
 #import "LaunchpadDatabaseHelper.h"
 
-@interface ViewController : NSViewController
+#define GRID_APP_HORIZONTALY 7
+#define GRID_APP_VERTICALY 5
+
+@interface ViewController : NSViewController{
+    int currentPage;
+    LaunchpadDatabaseHelper *launchpadHelper;
+    NSView * documentView;
+}
+
 -(void)buttonPressed:(NSObject *) sender;
+
 @end

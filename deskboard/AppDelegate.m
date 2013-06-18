@@ -20,7 +20,7 @@
     //[window setLevel:kCGDockWindowLevel - 1];
 
     [window setLevel:kCGDesktopWindowLevel + 20];
-    [window setCollectionBehavior: NSWindowCollectionBehaviorFullScreenPrimary];
+    [window setCollectionBehavior: NSWindowCollectionBehaviorFullScreenPrimary | NSWindowCollectionBehaviorCanJoinAllSpaces];
     
     [window setFrame:[[NSScreen mainScreen] frame] display:YES];
     [window setIgnoresMouseEvents:NO];

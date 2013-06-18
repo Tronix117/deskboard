@@ -26,29 +26,58 @@
 }
 
 - (NSArray *)getItemsWithParentId: (int) parentId {
-    return [_database query: [NSString stringWithFormat:@"SELECT * FROM items WHERE parent_id = %d;", parentId]];
+    return [_database query: [NSString stringWithFormat:@"SELECT * FROM items WHERE parent_id = %d AND flags IS NOT NULL ORDER BY ordering;", parentId]];
 }
 
 - (NSArray *)getItemsWithParentId: (int) parentId andType: (int) type {
-    return [_database query: [NSString stringWithFormat:@"SELECT * FROM items WHERE parent_id = %d AND type = %d;", parentId, type]];
+    return [_database query: [NSString stringWithFormat:@"SELECT * FROM items WHERE parent_id = %d AND type = %d AND flags IS NOT NULL ORDER BY ordering;", parentId, type]];
 }
 
 - (NSArray *)getPages {
     return [self getItemsWithParentId: 1 andType: LAUNCHPAD_TYPE_PAGE];
 }
 
-- (NSArray *)getPageContentWithItemId: (int) itemId {
+- (NSArray *)getPageContentForPageId: (int) itemId {
     return [self getItemsWithParentId: itemId];
 }
 
 - (NSDictionary *)getGroupWithItemId: (int) itemId {
     NSArray *groups = [_database query: [NSString stringWithFormat:@"SELECT * FROM groups WHERE item_id = %d;", itemId]];
-    return [groups objectAtIndex: 0];
+    if ([groups count] > 0) {
+        return [groups objectAtIndex: 0];
+    } else {
+        return nil;
+    }
+}
+
+- (NSDictionary *)getGroupFromItem: (NSDictionary *) item {
+    return [self getGroupWithItemId:[[item objectForKey:@"rowid"] intValue]];
 }
 
 - (NSDictionary *)getAppWithItemId: (int) itemId {
     NSArray *apps = [_database query: [NSString stringWithFormat:@"SELECT * FROM apps WHERE item_id = %d;", itemId]];
-    return [apps objectAtIndex: 0];
+    if ([apps count] > 0) {
+        return [apps objectAtIndex: 0];
+    } else {
+        return nil;
+    }
+}
+
+- (NSDictionary *)getAppFromItem: (NSDictionary *) item {
+    return [self getAppWithItemId:[[item objectForKey:@"rowid"] intValue]];
+}
+
+- (NSData *)getImageDataWithItemId: (int) itemId {
+    NSArray *apps = [_database query: [NSString stringWithFormat:@"SELECT * FROM image_cache WHERE item_id = %d;", itemId]];
+    if ([apps count] > 0) {
+        return [[apps objectAtIndex: 0] objectForKey:@"image_data"];
+    } else {
+        return nil;
+    }
+}
+
+- (NSData *)getImageDataFromItem: (NSDictionary *) item {
+    return [self getImageDataWithItemId:[[item objectForKey:@"rowid"] intValue]];
 }
 
 - (NSArray *)getApps {
