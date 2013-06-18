@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "FB04333D176B247C002EA25D"
-               BuildableName = "Deskboard.temp_caseinsensitive_rename.app"
+               BuildableName = "Deskboard.app"
                BlueprintName = "Deskboard"
                ReferencedContainer = "container:Deskboard.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FB04333D176B247C002EA25D"
-            BuildableName = "Deskboard.temp_caseinsensitive_rename.app"
+            BuildableName = "Deskboard.app"
             BlueprintName = "Deskboard"
             ReferencedContainer = "container:Deskboard.xcodeproj">
          </BuildableReference>
@@ -52,7 +52,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FB04333D176B247C002EA25D"
-            BuildableName = "Deskboard.temp_caseinsensitive_rename.app"
+            BuildableName = "Deskboard.app"
             BlueprintName = "Deskboard"
             ReferencedContainer = "container:Deskboard.xcodeproj">
          </BuildableReference>
@@ -70,7 +70,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FB04333D176B247C002EA25D"
-            BuildableName = "Deskboard.temp_caseinsensitive_rename.app"
+            BuildableName = "Deskboard.app"
             BlueprintName = "Deskboard"
             ReferencedContainer = "container:Deskboard.xcodeproj">
          </BuildableReference>
