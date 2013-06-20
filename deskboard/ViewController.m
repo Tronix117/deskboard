@@ -44,13 +44,13 @@
     [self.view addSubview:backgroundContenerView];
      */
     
-    /* searchfield - can't manage to get the focus
+    /*searchfield - can't manage to get the focus
     screenFrame = [[NSScreen mainScreen] frame];
     float width = 200;
     searchField = [[NSSearchField alloc] initWithFrame:NSMakeRect((screenFrame.size.width - width) / 2 , screenFrame.size.height * 0.90, width, 50)];
     
-    [self.view addSubview:searchField];
-     */
+    [self.view addSubview:searchField];*/
+     
     
     [self viewDidLoad];
 }
@@ -78,6 +78,8 @@
     
     clipView = [scrollView contentView];
     
+    //[self _debugViewPositionning:documentView];
+    
     [self.view addSubview:scrollView];
     
     [self.window makeFirstResponder:searchField];
@@ -93,8 +95,8 @@
 -(void)documentViewDidLoad {
     int marginLeft = screenFrame.size.width * 0.12;
     int marginRight = marginLeft;
-    int marginTop = screenFrame.size.height * 0.13;
-    int marginBottom = screenFrame.size.height * 0.13;
+    int marginTop = screenFrame.size.height * 0.12;
+    int marginBottom = screenFrame.size.height * 0.12;
     
     NSArray *pages = [launchpadHelper getPages];
     
