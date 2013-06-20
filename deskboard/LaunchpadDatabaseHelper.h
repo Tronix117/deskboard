@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ZIMDbSdk.h"
 #import "ZIMSqlSdk.h"
+#import "VDKQueue.h"
 
 #define LAUNCHPAD_TYPE_GROUP 2
 #define LAUNCHPAD_TYPE_PAGE 3
@@ -17,6 +18,7 @@
 @interface LaunchpadDatabaseHelper : NSObject {
 @protected
     ZIMDbConnection *_database;
+    VDKQueue *_vdkQueue;
 }
 
 - (NSArray *)getItemsWithParentId: (int) parentId;

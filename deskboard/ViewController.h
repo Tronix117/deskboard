@@ -10,6 +10,8 @@
 #import "LaunchpadDatabaseHelper.h"
 #import "ScrollView.h"
 #import "GroupView.h"
+#import <QuartzCore/QuartzCore.h>
+#import "VDKQueue.h"
 
 #define GRID_APP_HORIZONTALY 7
 #define GRID_APP_VERTICALY 5

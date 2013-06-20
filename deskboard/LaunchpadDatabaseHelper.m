@@ -14,12 +14,20 @@
     self = [super init];
     
     if (self) {
+        NSString *dockApplicationSupportPath = [NSString stringWithFormat:@"%@/Application Support/Dock", [NSSearchPathForDirectoriesInDomains( NSLibraryDirectory, NSUserDomainMask, YES ) objectAtIndex:0]];
+        NSArray *dirFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:dockApplicationSupportPath error:nil];
+        NSArray *dbFiles = [dirFiles filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self ENDSWITH '.db'"]];
+        
         NSDictionary *dbConfig = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                    @"launchpad.db", @"database",
-                                    @"/Users/jeremyt/Desktop", @"databaseLocation",
+                                    [dbFiles objectAtIndex:0], @"database",
+                                    dockApplicationSupportPath, @"databaseLocation",
                                     @"YES", @"readonly",
                                     @"SQLite", @"type", nil];
         _database = [[ZIMDbConnection alloc] initWithDictionary: dbConfig withMultithreadingSupport:NO];
+        
+        _vdkQueue = [[VDKQueue alloc] init];
+        [_vdkQueue addPath:dockApplicationSupportPath notifyingAbout:VDKQueueNotifyAboutWrite];
+        [_vdkQueue setAlwaysPostNotifications:YES];
     }
     
     return self;

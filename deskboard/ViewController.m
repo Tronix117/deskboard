@@ -30,6 +30,7 @@
 
 -(void)viewWillLoad {
     launchpadHelper = [[LaunchpadDatabaseHelper alloc] init];
+    [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(refreshView) name:@"VDKQueueFileWrittenToNotification" object:nil];
 }
 
 -(void)viewDidLoad {
@@ -57,6 +58,11 @@
     [self documentViewDidLoad];
 }
 
+-(void)refreshView {
+    [documentView removeFromSuperview];
+    [self viewDidLoad];
+}
+
 -(void)documentViewDidLoad {
     int marginLeft = screenFrame.size.width * 0.08;
     int marginRight = marginLeft;
@@ -76,9 +82,9 @@
         NSDictionary *page = pages[i];
         
         NSView *pageView = [[NSView alloc] initWithFrame:NSMakeRect(i * screenFrame.size.width + marginLeft, marginBottom, screenFrame.size.width - marginLeft -marginRight, screenFrame.size.height - marginBottom - marginTop)];
-
+        
         NSArray *items = [launchpadHelper getPageContentForPageId:[[page objectForKey:@"rowid"] intValue]];
-
+        
         int j = 0;
         for (NSDictionary *item in items) {
             [self addIconFromItem: item withIndex: j toView: pageView];
@@ -153,12 +159,34 @@
         
         NSArray *insideItems = [launchpadHelper getContentFromGroup:group];
         
-        itemView = [[NSView alloc] initWithFrame:NSMakeRect((width - (height - textViewHeight))/ 2, textViewHeight, height - textViewHeight, height - textViewHeight)];
+        NSImage *background = [self generateGroupViewBackgroundImage];
+        
+        int borderWidth = 6.0f;
+        int groupViewSideSize = (height - textViewHeight) * 0.9; // the scale is to let some space for the shadow
+        int groupViewBottom = ((height - textViewHeight) - groupViewSideSize) / 2 + textViewHeight;
+        int groupViewLeft = (width - groupViewSideSize)/ 2;
+        
+        NSCustomImageRep *gradientImageRep = [[NSCustomImageRep alloc] initWithSize:NSMakeSize(groupViewSideSize, groupViewSideSize) flipped:NO drawingHandler:^BOOL(NSRect dstRect) {
+            NSGradient* aGradient = [[NSGradient alloc]
+                                     initWithStartingColor:[NSColor colorWithCalibratedWhite:0.7 alpha:1.0]
+                                     endingColor:[NSColor colorWithCalibratedWhite:0.5 alpha:1.0]];
+            [aGradient drawInRect:dstRect angle:270];
+            return YES;
+        }];
+        NSImage *gradientImage = [[NSImage alloc] initWithSize:[gradientImageRep size]];
+        [gradientImage addRepresentation: gradientImageRep];
+        NSColor *borderColor = [NSColor colorWithPatternImage:gradientImage];
+        
+        itemView = [[NSView alloc] initWithFrame:NSMakeRect(groupViewLeft, groupViewBottom, groupViewSideSize, groupViewSideSize)];
         [itemView setWantsLayer:YES];
-        [itemView.layer setBackgroundColor:CGColorCreateGenericGray(1.0, 1.0)];
+        
+        [itemView.layer setBackgroundColor:[NSColor colorWithPatternImage: background].CGColor];
         [itemView.layer setCornerRadius:20.0];
+        itemView.layer.borderColor = borderColor.CGColor;
+        itemView.layer.borderWidth = borderWidth;
         
         NSShadow *boxShadow = [[NSShadow alloc] init];
+        
         [boxShadow setShadowColor:[NSColor blackColor]];
         [boxShadow setShadowOffset:NSMakeSize(-0.3, -0.3)];
         [boxShadow setShadowBlurRadius:3];
@@ -170,16 +198,19 @@
         if (c > 9) // No more than 9 previews for a group
             c = 9;
         
-        int subwidth = width * 0.16;
+        int imageSideSize = groupViewSideSize * 0.25;
         
         for (int i = 0; i < c; i++) {
-            NSImageView *imageView = [[NSImageView alloc] initWithFrame:NSMakeRect(width * 0.08 + subwidth * 1.2 * (i % 3), height * 0.1 + subwidth * 1.2 * ((8 - i) / 3), subwidth, subwidth)];
+            int imageViewLeft = groupViewSideSize * 0.12 + imageSideSize * 1.1 * (i % 3);
+            int imageViewBottom = groupViewSideSize * 0.12 + imageSideSize * 1.1 * ((8 - i) / 3);
+            
+            NSImageView *imageView = [[NSImageView alloc] initWithFrame:NSMakeRect(imageViewLeft, imageViewBottom, imageSideSize, imageSideSize)];
             NSImage *image = [[NSImage alloc] initWithData:[launchpadHelper getImageDataFromItem: [insideItems objectAtIndex:i]]];
             [imageView setImage: image];
             
             [itemView addSubview:imageView];
         }
-
+        
     }
     
     [appView addSubview:titleView];
@@ -188,6 +219,51 @@
     [pageView addSubview:appView];
     
     return appView;
+}
+
+- (NSImage *)generateGroupViewBackgroundImage
+{
+    //-- Initialisation
+    
+    NSImage *image = [[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:@"/System/Library/Frameworks/AppKit.framework/Versions/C/Resources/NSTexturedFullScreenBackgroundColor.png"]];
+    NSSize size = [image size];
+    NSImage *outputImage = [[NSImage alloc] initWithSize:size];
+    
+    CIImage *baseImage = [CIImage imageWithData:[image TIFFRepresentation]];
+    CIImage *chainedOutputImage = baseImage;
+    
+    [outputImage lockFocus];
+    
+    //-- Adjusting Brightness
+    
+    CIFilter *brightnessFilter = [CIFilter filterWithName:@"CIColorControls"];
+    [brightnessFilter setDefaults];
+    [brightnessFilter setValue:baseImage forKey:kCIInputImageKey];
+    
+    [brightnessFilter setValue:[NSNumber numberWithDouble:0.06] forKey: kCIInputBrightnessKey];
+    
+    chainedOutputImage = [brightnessFilter valueForKey:kCIOutputImageKey];
+    
+    //-- Adjusting Scale
+    
+    CIFilter *scaleFilter = [CIFilter filterWithName:@"CILanczosScaleTransform"];
+    [scaleFilter setDefaults];
+    [scaleFilter setValue:chainedOutputImage forKey:kCIInputImageKey];
+    
+    [scaleFilter setValue:[NSNumber numberWithFloat:1.5] forKey:kCIInputScaleKey];
+    
+    chainedOutputImage = [scaleFilter valueForKey:kCIOutputImageKey];
+    
+    //-- Drawing
+    
+    [chainedOutputImage drawAtPoint:NSZeroPoint
+                           fromRect: chainedOutputImage.extent
+                          operation:NSCompositeCopy
+                           fraction:1.0];
+    
+    [outputImage unlockFocus];
+    
+    return outputImage;
 }
 
 -(void)scrollWheel:(NSEvent *)theEvent{
@@ -226,7 +302,7 @@
 -(void)scrollToPage: (int) page{
     if(isScrolling)
         return;
-        
+    
     isScrolling = YES;
     [NSAnimationContext beginGrouping];
     [[NSAnimationContext currentContext] setCompletionHandler:^{

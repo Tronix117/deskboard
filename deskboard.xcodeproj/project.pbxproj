@@ -53,6 +53,9 @@
 		FB5E370F1772589800FB7CD3 /* ScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5E370E1772589800FB7CD3 /* ScrollView.m */; };
 		FB5E3714177291DD00FB7CD3 /* Launchpad.icns in Resources */ = {isa = PBXBuildFile; fileRef = FB5E3713177291DC00FB7CD3 /* Launchpad.icns */; };
 		FB5E37171772927400FB7CD3 /* GroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5E37161772927400FB7CD3 /* GroupView.m */; };
+		FB5E37191773250A00FB7CD3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB5E37181773250A00FB7CD3 /* QuartzCore.framework */; };
+		FB5E372F1773472E00FB7CD3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = FB5E372C1773472E00FB7CD3 /* README.md */; };
+		FB5E37301773472E00FB7CD3 /* VDKQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5E372E1773472E00FB7CD3 /* VDKQueue.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -156,6 +159,10 @@
 		FB5E3713177291DC00FB7CD3 /* Launchpad.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Launchpad.icns; sourceTree = "<group>"; };
 		FB5E37151772927400FB7CD3 /* GroupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupView.h; sourceTree = "<group>"; };
 		FB5E37161772927400FB7CD3 /* GroupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupView.m; sourceTree = "<group>"; };
+		FB5E37181773250A00FB7CD3 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		FB5E372C1773472E00FB7CD3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		FB5E372D1773472E00FB7CD3 /* VDKQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VDKQueue.h; sourceTree = "<group>"; };
+		FB5E372E1773472E00FB7CD3 /* VDKQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VDKQueue.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +170,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB5E37191773250A00FB7CD3 /* QuartzCore.framework in Frameworks */,
 				FB1A32C2176B9B070011BE33 /* libsqlite3.dylib in Frameworks */,
 				FB043343176B247C002EA25D /* Cocoa.framework in Frameworks */,
 			);
@@ -174,8 +182,8 @@
 		FB043333176B247C002EA25D = {
 			isa = PBXGroup;
 			children = (
-				FB5E3713177291DC00FB7CD3 /* Launchpad.icns */,
 				FB043348176B247C002EA25D /* Classes */,
+				FB5E373117734BBC00FB7CD3 /* Resources */,
 				FB043349176B247C002EA25D /* Supporting Files */,
 				FB1A364B176B9BE70011BE33 /* Libraries */,
 				FB043341176B247C002EA25D /* Frameworks */,
@@ -195,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				FB1A32C1176B9B070011BE33 /* libsqlite3.dylib */,
+				FB5E37181773250A00FB7CD3 /* QuartzCore.framework */,
 				FB043342176B247C002EA25D /* Cocoa.framework */,
 				FB043344176B247C002EA25D /* Other Frameworks */,
 			);
@@ -362,6 +371,7 @@
 		FB1A364B176B9BE70011BE33 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				FB5E372B1773472E00FB7CD3 /* VDKQueue */,
 				FB1A364C176B9BF80011BE33 /* SQL Query Builder */,
 			);
 			name = Libraries;
@@ -378,6 +388,24 @@
 				FB1A344B176B9BDF0011BE33 /* README.md */,
 			);
 			name = "SQL Query Builder";
+			sourceTree = "<group>";
+		};
+		FB5E372B1773472E00FB7CD3 /* VDKQueue */ = {
+			isa = PBXGroup;
+			children = (
+				FB5E372C1773472E00FB7CD3 /* README.md */,
+				FB5E372D1773472E00FB7CD3 /* VDKQueue.h */,
+				FB5E372E1773472E00FB7CD3 /* VDKQueue.m */,
+			);
+			path = VDKQueue;
+			sourceTree = "<group>";
+		};
+		FB5E373117734BBC00FB7CD3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				FB5E3713177291DC00FB7CD3 /* Launchpad.icns */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -435,6 +463,7 @@
 				FB043353176B247C002EA25D /* Credits.rtf in Resources */,
 				FB1A3625176B9BE00011BE33 /* README.md in Resources */,
 				FB5E3714177291DD00FB7CD3 /* Launchpad.icns in Resources */,
+				FB5E372F1773472E00FB7CD3 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -485,6 +514,7 @@
 				FB1A364F176B9C7D0011BE33 /* LaunchpadDatabaseHelper.m in Sources */,
 				FB5E370F1772589800FB7CD3 /* ScrollView.m in Sources */,
 				FB5E37171772927400FB7CD3 /* GroupView.m in Sources */,
+				FB5E37301773472E00FB7CD3 /* VDKQueue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -570,6 +600,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "deskboard/Deskboard-Prefix.pch";
 				INFOPLIST_FILE = "deskboard/Deskboard-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = Deskboard;
 				WRAPPER_EXTENSION = app;
 			};
@@ -582,6 +613,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "deskboard/Deskboard-Prefix.pch";
 				INFOPLIST_FILE = "deskboard/Deskboard-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = Deskboard;
 				WRAPPER_EXTENSION = app;
 			};
