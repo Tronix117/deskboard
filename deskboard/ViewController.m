@@ -28,37 +28,48 @@
     [self viewDidLoad];
 }
 
--(void)buttonPressed: (NSObject *) sender {
-    NSLog(@"Button pressed!");
-    [self.view setNeedsDisplay:YES];
-}
-
 -(void)viewWillLoad {
     launchpadHelper = [[LaunchpadDatabaseHelper alloc] init];
 }
 
 -(void)viewDidLoad {
-    NSRect screenFrame = [[NSScreen mainScreen] frame];
+    screenFrame = [[NSScreen mainScreen] frame];
     
     documentView = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, [[launchpadHelper getPages] count] * screenFrame.size.width, screenFrame.size.height)];
-        
-    NSScrollView *scrollView = [[NSScrollView alloc] initWithFrame: [[NSScreen mainScreen] frame]];
+    
+    currentPage = 0;
+    
+    scrollView = [[ScrollView alloc] initWithFrame: [[NSScreen mainScreen] frame]];
     [scrollView setHasHorizontalScroller:YES];
+    [scrollView setRulersVisible:NO];
     [scrollView setDrawsBackground:NO];
     [scrollView setDocumentView: documentView];
+    //[[scrollView contentView] setPostsBoundsChangedNotifications:YES];
+    [scrollView setDelegate:self];
+    [scrollView setDisableSrollWheel:YES];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scrollViewBoundsDidChange:) name:NSViewBoundsDidChangeNotification object:[scrollView contentView]];
+    isScrolling = NO;
+    
+    clipView = [scrollView contentView];
+    
     [self.view addSubview:scrollView];
     
     [self documentViewDidLoad];
 }
 
 -(void)documentViewDidLoad {
-    NSRect screenFrame = [[NSScreen mainScreen] frame];
     int marginLeft = screenFrame.size.width * 0.08;
     int marginRight = marginLeft;
     int marginTop = screenFrame.size.height * 0.05;
     int marginBottom = screenFrame.size.height * 0.10;
     
     NSArray *pages = [launchpadHelper getPages];
+    
+    pagingView = [[NSTextView alloc] initWithFrame:NSMakeRect(0, screenFrame.size.height * 0.08, screenFrame.size.width, 34)];
+    [pagingView setAlignment:NSCenterTextAlignment];
+    [pagingView setBackgroundColor:[NSColor clearColor]];
+    [pagingView setFont:[NSFont fontWithName:@"Arial" size:32]];
+    NSString *pagingString = @"";
     
     int c = (int)[pages count];
     for (int i = 0; i < c; i++) {
@@ -74,8 +85,23 @@
             j++;
         }
         
+        pagingString = [pagingString stringByAppendingString:@"• "];
+        
         [documentView addSubview: pageView];
     }
+    [pagingView setString: pagingString];
+    
+    for (int i = 0; i < c; i++){
+        [pagingView setFont:[NSFont fontWithName:@"Arial" size:14] range:NSMakeRange(i * 2 + 1, 1)];
+    }
+    
+    [self.view addSubview: pagingView];
+    [self updatePaging];
+}
+
+-(void)updatePaging{
+    [pagingView setTextColor:[NSColor colorWithCalibratedWhite:1.0 alpha:0.3]];
+    [pagingView setTextColor: [NSColor whiteColor] range: NSMakeRange (currentPage * 2, 1)];
 }
 
 -(NSView *)addIconFromItem: (NSDictionary *) item withIndex: (int) i toView: (NSView *)pageView{
@@ -90,6 +116,12 @@
     int bottom = pageView.frame.size.height - ((height + verticalSpacing) * (i / GRID_APP_HORIZONTALY +1));
     
     NSView *appView = [[NSView alloc] initWithFrame:NSMakeRect(left, bottom, width, height)];
+    
+    NSButton *clickArea = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, width, height)];
+    [clickArea setTag:[[item objectForKey:@"rowid"] intValue]];
+    [clickArea setTarget:self];
+    [clickArea setTransparent:YES];
+    [clickArea setBordered:NO];
     
     int itemType = [[item objectForKey:@"type"] intValue];
     if (itemType == LAUNCHPAD_TYPE_APP) {
@@ -114,16 +146,82 @@
         [titleView setShadow:textShadow];
         
         [appView addSubview:titleView];
-        [appView addSubview: imageView];
+        [appView addSubview:imageView];
+        
+        [clickArea setAction:@selector(appClickAction:)];
         
     } else if(itemType == LAUNCHPAD_TYPE_GROUP) {
         NSDictionary *group = [launchpadHelper getGroupFromItem:item];
         NSLog(@"-- Group.title: %@", [group objectForKey:@"title"]);
     }
     
+    [appView addSubview:clickArea];
     [pageView addSubview:appView];
     
     return appView;
+}
+
+-(void)scrollWheel:(NSEvent *)theEvent{
+    if (isScrolling)
+        return;
+    
+    int pageDirection = [self getPageDirection];
+    
+    if (pageDirection!=0){
+        [self scrollToPage: currentPage + pageDirection];
+    } else {
+        NSPoint origin = [clipView bounds].origin;
+        origin.x -= theEvent.scrollingDeltaX * 0.5;
+        [clipView setBoundsOrigin:origin];
+    }
+}
+
+-(void)scrollViewDidEndScrolling{
+    [self scrollToPage: currentPage + [self getPageDirection]];
+}
+
+-(int)getPageDirection{
+    int currentPos = [clipView bounds].origin.x;
+    int originPos = currentPage * screenFrame.size.width;
+    int sensibility = screenFrame.size.width * 0.10;
+    
+    if (currentPos - sensibility > originPos)
+        return 1;
+    else if (currentPos + sensibility < originPos)
+        return -1;
+    else
+        return 0;
+}
+
+
+-(void)scrollToPage: (int) page{
+    if(isScrolling)
+        return;
+        
+    isScrolling = YES;
+    [NSAnimationContext beginGrouping];
+    [[NSAnimationContext currentContext] setCompletionHandler:^{
+        isScrolling = NO;
+    }];
+    NSPoint newOrigin = [clipView bounds].origin;
+    newOrigin.x = page * screenFrame.size.width;
+    [[clipView animator] setBoundsOrigin:newOrigin];
+    [NSAnimationContext endGrouping];
+    
+    currentPage = page;
+    [self updatePaging];
+}
+
+-(void)appClickAction:(NSButton *) sender{
+    //[self scrollToPage:1];
+    //NSRect screenFrame = [[NSScreen mainScreen] frame];
+    [NSAnimationContext beginGrouping];
+    NSPoint newOrigin = [clipView bounds].origin;
+    newOrigin.x = 1920;
+    [[clipView animator] setBoundsOrigin:newOrigin];
+    [NSAnimationContext endGrouping];
+    //NSDictionary *app = [launchpadHelper getAppWithItemId:(int)sender.tag];
+    //[[NSWorkspace sharedWorkspace] launchAppWithBundleIdentifier:[app objectForKey:@"bundleid"] options:NSWorkspaceLaunchDefault additionalEventParamDescriptor:nil launchIdentifier:nil];
 }
 
 @end

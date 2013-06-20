@@ -10,7 +10,9 @@
 #import "ViewController.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>{
-  NSWindow *window;  
+  NSWindow *window;
 }
+
+@property (retain) ViewController *viewController;
 
 @end

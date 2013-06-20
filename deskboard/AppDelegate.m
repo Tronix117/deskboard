@@ -24,8 +24,8 @@
     
     [window setFrame:[[NSScreen mainScreen] frame] display:YES];
     [window setIgnoresMouseEvents:NO];
-    ViewController *viewController = [[ViewController alloc] init];
-    [window setContentView: [viewController view]];
+     self.viewController = [[ViewController alloc] init];
+    [window setContentView: [self.viewController view]];
     [window makeKeyAndOrderFront:NSApp];
 }
 

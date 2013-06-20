@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "LaunchpadDatabaseHelper.h"
+#import "ScrollView.h"
 
 #define GRID_APP_HORIZONTALY 7
 #define GRID_APP_VERTICALY 5
@@ -16,8 +17,13 @@
     int currentPage;
     LaunchpadDatabaseHelper *launchpadHelper;
     NSView * documentView;
+    ScrollView * scrollView;
+    NSClipView* clipView;
+    BOOL isScrolling;
+    NSRect screenFrame;
+    NSTextView * pagingView;
 }
 
--(void)buttonPressed:(NSObject *) sender;
+-(void)appClickAction:(id) sender;
 
 @end
