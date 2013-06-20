@@ -52,7 +52,6 @@
 		FB1A364F176B9C7D0011BE33 /* LaunchpadDatabaseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = FB1A364E176B9C7D0011BE33 /* LaunchpadDatabaseHelper.m */; };
 		FB5E370F1772589800FB7CD3 /* ScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5E370E1772589800FB7CD3 /* ScrollView.m */; };
 		FB5E3714177291DD00FB7CD3 /* Launchpad.icns in Resources */ = {isa = PBXBuildFile; fileRef = FB5E3713177291DC00FB7CD3 /* Launchpad.icns */; };
-		FB5E37171772927400FB7CD3 /* GroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5E37161772927400FB7CD3 /* GroupView.m */; };
 		FB5E37191773250A00FB7CD3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB5E37181773250A00FB7CD3 /* QuartzCore.framework */; };
 		FB5E372F1773472E00FB7CD3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = FB5E372C1773472E00FB7CD3 /* README.md */; };
 		FB5E37301773472E00FB7CD3 /* VDKQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5E372E1773472E00FB7CD3 /* VDKQueue.m */; };
@@ -157,8 +156,6 @@
 		FB5E370D1772589800FB7CD3 /* ScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollView.h; sourceTree = "<group>"; };
 		FB5E370E1772589800FB7CD3 /* ScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollView.m; sourceTree = "<group>"; };
 		FB5E3713177291DC00FB7CD3 /* Launchpad.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Launchpad.icns; sourceTree = "<group>"; };
-		FB5E37151772927400FB7CD3 /* GroupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupView.h; sourceTree = "<group>"; };
-		FB5E37161772927400FB7CD3 /* GroupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupView.m; sourceTree = "<group>"; };
 		FB5E37181773250A00FB7CD3 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		FB5E372C1773472E00FB7CD3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		FB5E372D1773472E00FB7CD3 /* VDKQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VDKQueue.h; sourceTree = "<group>"; };
@@ -225,8 +222,6 @@
 			children = (
 				FB043354176B247C002EA25D /* AppDelegate.h */,
 				FB043355176B247C002EA25D /* AppDelegate.m */,
-				FB5E37151772927400FB7CD3 /* GroupView.h */,
-				FB5E37161772927400FB7CD3 /* GroupView.m */,
 				FB043371176B3D59002EA25D /* ViewController.h */,
 				FB043372176B3D59002EA25D /* ViewController.m */,
 				FB1A364D176B9C7D0011BE33 /* LaunchpadDatabaseHelper.h */,
@@ -513,7 +508,6 @@
 				FB1A3647176B9BE00011BE33 /* ZIMMessageDigest.m in Sources */,
 				FB1A364F176B9C7D0011BE33 /* LaunchpadDatabaseHelper.m in Sources */,
 				FB5E370F1772589800FB7CD3 /* ScrollView.m in Sources */,
-				FB5E37171772927400FB7CD3 /* GroupView.m in Sources */,
 				FB5E37301773472E00FB7CD3 /* VDKQueue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

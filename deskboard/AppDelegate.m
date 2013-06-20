@@ -26,6 +26,7 @@
     [window setIgnoresMouseEvents:NO];
      self.viewController = [[ViewController alloc] init];
     [window setContentView: [self.viewController view]];
+    [self.viewController setWindow:window];
     [window makeKeyAndOrderFront:NSApp];
 }
 

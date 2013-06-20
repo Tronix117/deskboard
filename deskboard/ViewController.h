@@ -9,7 +9,6 @@
 #import <Cocoa/Cocoa.h>
 #import "LaunchpadDatabaseHelper.h"
 #import "ScrollView.h"
-#import "GroupView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "VDKQueue.h"
 
@@ -21,11 +20,15 @@
     LaunchpadDatabaseHelper *launchpadHelper;
     NSView * documentView;
     ScrollView * scrollView;
+    //NSImageView *backgroundView;
     NSClipView* clipView;
     BOOL isScrolling;
     NSRect screenFrame;
     NSTextView * pagingView;
+    NSSearchField * searchField;
 }
+
+@property(assign) NSWindow * window;
 
 -(void)appClickAction:(id) sender;
 

@@ -25,6 +25,33 @@
     [self.view setWantsLayer:YES];
     [self.view.layer setContents:image];
     
+    /* moving background - too slow
+    screenFrame = [[NSScreen mainScreen] frame];
+    NSRect bgImageFrame = screenFrame;
+    
+    float bgScaling = 1.5;
+    bgImageFrame.size.width *= bgScaling;
+    bgImageFrame.size.height *= bgScaling;
+    bgImageFrame.origin.y = (screenFrame.size.height - bgImageFrame.size.height) / 2;
+    
+    backgroundView = [[NSImageView alloc] initWithFrame:bgImageFrame];
+    [backgroundView setImage:image];
+    [backgroundView setImageScaling:NSImageScaleAxesIndependently];
+    
+    NSView * backgroundContenerView = [[NSView alloc] initWithFrame:screenFrame];
+    [backgroundContenerView addSubview:backgroundView];
+    
+    [self.view addSubview:backgroundContenerView];
+     */
+    
+    /* searchfield - can't manage to get the focus
+    screenFrame = [[NSScreen mainScreen] frame];
+    float width = 200;
+    searchField = [[NSSearchField alloc] initWithFrame:NSMakeRect((screenFrame.size.width - width) / 2 , screenFrame.size.height * 0.90, width, 50)];
+    
+    [self.view addSubview:searchField];
+     */
+    
     [self viewDidLoad];
 }
 
@@ -34,7 +61,7 @@
 }
 
 -(void)viewDidLoad {
-    screenFrame = [[NSScreen mainScreen] frame];
+    screenFrame = [[NSScreen mainScreen] frame]; // Refresh screenFrame in case of res changing
     
     documentView = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, [[launchpadHelper getPages] count] * screenFrame.size.width, screenFrame.size.height)];
     
@@ -45,15 +72,15 @@
     [scrollView setRulersVisible:NO];
     [scrollView setDrawsBackground:NO];
     [scrollView setDocumentView: documentView];
-    //[[scrollView contentView] setPostsBoundsChangedNotifications:YES];
     [scrollView setDelegate:self];
     [scrollView setDisableSrollWheel:YES];
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scrollViewBoundsDidChange:) name:NSViewBoundsDidChangeNotification object:[scrollView contentView]];
     isScrolling = NO;
     
     clipView = [scrollView contentView];
     
     [self.view addSubview:scrollView];
+    
+    [self.window makeFirstResponder:searchField];
     
     [self documentViewDidLoad];
 }
@@ -64,14 +91,14 @@
 }
 
 -(void)documentViewDidLoad {
-    int marginLeft = screenFrame.size.width * 0.08;
+    int marginLeft = screenFrame.size.width * 0.12;
     int marginRight = marginLeft;
-    int marginTop = screenFrame.size.height * 0.05;
-    int marginBottom = screenFrame.size.height * 0.10;
+    int marginTop = screenFrame.size.height * 0.13;
+    int marginBottom = screenFrame.size.height * 0.13;
     
     NSArray *pages = [launchpadHelper getPages];
     
-    pagingView = [[NSTextView alloc] initWithFrame:NSMakeRect(0, screenFrame.size.height * 0.08, screenFrame.size.width, 34)];
+    pagingView = [[NSTextView alloc] initWithFrame:NSMakeRect(0, screenFrame.size.height * 0.07, screenFrame.size.width, 34)];
     [pagingView setAlignment:NSCenterTextAlignment];
     [pagingView setBackgroundColor:[NSColor clearColor]];
     [pagingView setFont:[NSFont fontWithName:@"Arial" size:32]];
@@ -92,7 +119,7 @@
         }
         
         pagingString = [pagingString stringByAppendingString:@"• "];
-        
+        //[self _debugViewPositionning:pageView];
         [documentView addSubview: pageView];
     }
     [pagingView setString: pagingString];
@@ -105,6 +132,23 @@
     [self updatePaging];
 }
 
+-(NSColor *)_debugRandomColor{
+    return [NSColor colorWithCalibratedHue:arc4random() % 256 / 256.0 saturation:( arc4random() % 128 / 256.0 ) + 0.5 brightness:( arc4random() % 128 / 256.0 ) + 0.5 alpha:1.0];
+}
+
+-(void)_debugViewPositionning:(NSView *) view{
+    view.wantsLayer = YES;
+    view.layer.backgroundColor = [self _debugRandomColor].CGColor;
+    
+    NSTextView *sizeView = [[NSTextView alloc] initWithFrame:NSMakeRect(0, 0, 80, 26)];
+    [sizeView setAlignment:NSCenterTextAlignment];
+    [sizeView setTextColor:[NSColor greenColor]];
+    [sizeView setBackgroundColor:[NSColor blackColor]];
+    [sizeView setFont:[NSFont fontWithName:@"Courier" size:10]];
+    [sizeView setString:[NSString stringWithFormat:@"(%d,%d)\n%dx%d", (int)view.frame.origin.x, (int)view.frame.origin.y, (int)view.frame.size.width, (int)view.frame.size.height]];
+    [view addSubview:sizeView];
+}
+
 -(void)updatePaging{
     [pagingView setTextColor:[NSColor colorWithCalibratedWhite:1.0 alpha:0.3]];
     [pagingView setTextColor: [NSColor whiteColor] range: NSMakeRange (currentPage * 2, 1)];
@@ -113,15 +157,24 @@
 -(NSView *)addIconFromItem: (NSDictionary *) item withIndex: (int) i toView: (NSView *)pageView{
     int textViewHeight = 20;
     
-    int width = pageView.frame.size.width / (1.30 * GRID_APP_HORIZONTALY - 0.30);
-    int height = (pageView.frame.size.height - GRID_APP_VERTICALY * textViewHeight) / (GRID_APP_VERTICALY + 0.30 * (GRID_APP_VERTICALY - 1));
-    int horizontalSpacing = width * 0.30 - textViewHeight;
-    int verticalSpacing = height * 0.30;
+    float marginScale = 0.3;
     
-    int left = 1.5 * horizontalSpacing + (width + horizontalSpacing) * (i % GRID_APP_HORIZONTALY);
-    int bottom = pageView.frame.size.height - ((height + verticalSpacing) * (i / GRID_APP_HORIZONTALY +1));
+    float width = pageView.frame.size.width / ((1 + marginScale) * GRID_APP_HORIZONTALY - marginScale);
+    float height = (pageView.frame.size.height - marginScale * textViewHeight + marginScale * textViewHeight * GRID_APP_VERTICALY) / (GRID_APP_VERTICALY + marginScale * GRID_APP_VERTICALY - marginScale);
+    
+    if ((height-textViewHeight) < width)
+        width = height - textViewHeight;
+    else
+        height = width - textViewHeight;
+        
+    float horizontalSpacing = (pageView.frame.size.width - GRID_APP_HORIZONTALY * width) / (GRID_APP_HORIZONTALY - 1);
+    float verticalSpacing = (pageView.frame.size.height - GRID_APP_VERTICALY * height) / (GRID_APP_VERTICALY - 1);
+    
+    float left = (width + horizontalSpacing) * (i % GRID_APP_HORIZONTALY);
+    float bottom = pageView.frame.size.height + verticalSpacing - ((height + verticalSpacing) * (i / GRID_APP_HORIZONTALY +1));
     
     NSView *appView = [[NSView alloc] initWithFrame:NSMakeRect(left, bottom, width, height)];
+    //[self _debugViewPositionning:appView];
     NSView *itemView;
     
     NSButton *clickArea = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, width, height)];
@@ -168,8 +221,8 @@
         
         NSCustomImageRep *gradientImageRep = [[NSCustomImageRep alloc] initWithSize:NSMakeSize(groupViewSideSize, groupViewSideSize) flipped:NO drawingHandler:^BOOL(NSRect dstRect) {
             NSGradient* aGradient = [[NSGradient alloc]
-                                     initWithStartingColor:[NSColor colorWithCalibratedWhite:0.7 alpha:1.0]
-                                     endingColor:[NSColor colorWithCalibratedWhite:0.5 alpha:1.0]];
+                                     initWithStartingColor:[NSColor colorWithCalibratedWhite:0.8 alpha:1.0]
+                                     endingColor:[NSColor colorWithCalibratedWhite:0.6 alpha:1.0]];
             [aGradient drawInRect:dstRect angle:270];
             return YES;
         }];
@@ -188,8 +241,8 @@
         NSShadow *boxShadow = [[NSShadow alloc] init];
         
         [boxShadow setShadowColor:[NSColor blackColor]];
-        [boxShadow setShadowOffset:NSMakeSize(-0.3, -0.3)];
-        [boxShadow setShadowBlurRadius:3];
+        [boxShadow setShadowOffset:NSMakeSize(-0.3, -0.7)];
+        [boxShadow setShadowBlurRadius:1.2];
         
         [itemView setShadow:boxShadow];
         
@@ -278,6 +331,11 @@
         NSPoint origin = [clipView bounds].origin;
         origin.x -= theEvent.scrollingDeltaX * 0.5;
         [clipView setBoundsOrigin:origin];
+        
+        /* moving background - too slow
+        NSRect bgFrame = backgroundView.frame;
+        bgFrame.origin.x += theEvent.scrollingDeltaX * 0.1;
+        [backgroundView setFrame: bgFrame];*/
     }
 }
 
