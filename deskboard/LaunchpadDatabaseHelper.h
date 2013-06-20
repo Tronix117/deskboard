@@ -25,6 +25,7 @@
 - (NSArray *)getPageContentForPageId: (int) itemId;
 - (NSDictionary *)getGroupWithItemId: (int) itemId;
 - (NSDictionary *)getGroupFromItem: (NSDictionary *) item;
+- (NSArray *)getContentFromGroup: (NSDictionary *) group;
 - (NSDictionary *)getAppWithItemId: (int) itemId;
 - (NSDictionary *)getAppFromItem: (NSDictionary *) item;
 - (NSData *)getImageDataWithItemId: (int) itemId;

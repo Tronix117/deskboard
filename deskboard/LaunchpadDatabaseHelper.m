@@ -54,6 +54,10 @@
     return [self getGroupWithItemId:[[item objectForKey:@"rowid"] intValue]];
 }
 
+- (NSArray *)getContentFromGroup: (NSDictionary *) group {
+    return [self getItemsWithParentId:[[group objectForKey:@"item_id"] intValue]];
+}
+
 - (NSDictionary *)getAppWithItemId: (int) itemId {
     NSArray *apps = [_database query: [NSString stringWithFormat:@"SELECT * FROM apps WHERE item_id = %d;", itemId]];
     if ([apps count] > 0) {

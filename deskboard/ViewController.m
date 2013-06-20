@@ -116,6 +116,7 @@
     int bottom = pageView.frame.size.height - ((height + verticalSpacing) * (i / GRID_APP_HORIZONTALY +1));
     
     NSView *appView = [[NSView alloc] initWithFrame:NSMakeRect(left, bottom, width, height)];
+    NSView *itemView;
     
     NSButton *clickArea = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, width, height)];
     [clickArea setTag:[[item objectForKey:@"rowid"] intValue]];
@@ -123,38 +124,58 @@
     [clickArea setTransparent:YES];
     [clickArea setBordered:NO];
     
+    NSString *title;
+    
     int itemType = [[item objectForKey:@"type"] intValue];
     if (itemType == LAUNCHPAD_TYPE_APP) {
         NSDictionary *app = [launchpadHelper getAppFromItem:item];
-        NSLog(@"-- App.title: %@", [app objectForKey:@"title"]);
+        title = [app objectForKey:@"title"];
         
-        NSImageView *imageView = [[NSImageView alloc] initWithFrame:NSMakeRect(0, textViewHeight, width, height - textViewHeight)];
+        itemView = [[NSImageView alloc] initWithFrame:NSMakeRect(0, textViewHeight, width, height - textViewHeight)];
         NSImage *image = [[NSImage alloc] initWithData:[launchpadHelper getImageDataFromItem: item]];
-        [imageView setImage: image];
-        
-        NSTextView *titleView = [[NSTextView alloc] initWithFrame:NSMakeRect(0, 0, width, textViewHeight)];
-        [titleView setString:[app objectForKey:@"title"]];
-        [titleView setAlignment:NSCenterTextAlignment];
-        [titleView setBackgroundColor:[NSColor clearColor]];
-        [titleView setTextColor:[NSColor whiteColor]];
-        [titleView setFont:[NSFont fontWithName:@"Helvetica Neue Bold" size:13]];
-        
-        NSShadow *textShadow = [[NSShadow alloc] init];
-        [textShadow setShadowColor:[NSColor blackColor]];
-        [textShadow setShadowOffset:NSMakeSize(-0.7, 0.7)];
-        [textShadow setShadowBlurRadius:1];
-        [titleView setShadow:textShadow];
-        
-        [appView addSubview:titleView];
-        [appView addSubview:imageView];
+        [(NSImageView *)itemView setImage: image];
         
         [clickArea setAction:@selector(appClickAction:)];
         
     } else if(itemType == LAUNCHPAD_TYPE_GROUP) {
         NSDictionary *group = [launchpadHelper getGroupFromItem:item];
-        NSLog(@"-- Group.title: %@", [group objectForKey:@"title"]);
+        title = [group objectForKey:@"title"];
+        
+        NSArray *insideItems = [launchpadHelper getContentFromGroup:group];
+        
+        itemView = [[NSView alloc] initWithFrame:NSMakeRect(0, textViewHeight, width, height - textViewHeight)];
+        
+        int c = (int)[insideItems count];
+        if (c > 9) // No more than 9 previews for a group
+            c = 9;
+        
+        int subwidth = width * 0.16;
+        
+        for (int i = 0; i < c; i++) {
+            NSImageView *imageView = [[NSImageView alloc] initWithFrame:NSMakeRect(width * 0.23 + subwidth * 1.2 * (i % 3), height * 0.1 + subwidth * 1.2 * ((8 - i) / 3), subwidth, subwidth)];
+            NSImage *image = [[NSImage alloc] initWithData:[launchpadHelper getImageDataFromItem: [insideItems objectAtIndex:i]]];
+            [imageView setImage: image];
+            
+            [itemView addSubview:imageView];
+        }
+
     }
     
+    NSTextView *titleView = [[NSTextView alloc] initWithFrame:NSMakeRect(0, 0, width, textViewHeight)];
+    [titleView setString:title];
+    [titleView setAlignment:NSCenterTextAlignment];
+    [titleView setBackgroundColor:[NSColor clearColor]];
+    [titleView setTextColor:[NSColor whiteColor]];
+    [titleView setFont:[NSFont fontWithName:@"Helvetica Neue Bold" size:13]];
+    
+    NSShadow *textShadow = [[NSShadow alloc] init];
+    [textShadow setShadowColor:[NSColor blackColor]];
+    [textShadow setShadowOffset:NSMakeSize(-0.7, 0.7)];
+    [textShadow setShadowBlurRadius:1];
+    [titleView setShadow:textShadow];
+    
+    [appView addSubview:titleView];
+    [appView addSubview:itemView];
     [appView addSubview:clickArea];
     [pageView addSubview:appView];
     
@@ -213,15 +234,8 @@
 }
 
 -(void)appClickAction:(NSButton *) sender{
-    //[self scrollToPage:1];
-    //NSRect screenFrame = [[NSScreen mainScreen] frame];
-    [NSAnimationContext beginGrouping];
-    NSPoint newOrigin = [clipView bounds].origin;
-    newOrigin.x = 1920;
-    [[clipView animator] setBoundsOrigin:newOrigin];
-    [NSAnimationContext endGrouping];
-    //NSDictionary *app = [launchpadHelper getAppWithItemId:(int)sender.tag];
-    //[[NSWorkspace sharedWorkspace] launchAppWithBundleIdentifier:[app objectForKey:@"bundleid"] options:NSWorkspaceLaunchDefault additionalEventParamDescriptor:nil launchIdentifier:nil];
+    NSDictionary *app = [launchpadHelper getAppWithItemId:(int)sender.tag];
+    [[NSWorkspace sharedWorkspace] launchAppWithBundleIdentifier:[app objectForKey:@"bundleid"] options:NSWorkspaceLaunchDefault additionalEventParamDescriptor:nil launchIdentifier:nil];
 }
 
 @end
