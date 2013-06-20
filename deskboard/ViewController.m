@@ -22,8 +22,8 @@
     NSURL *imageURL = [[NSWorkspace sharedWorkspace] desktopImageURLForScreen:[NSScreen mainScreen]];
     NSImage *image = [[NSImage alloc] initWithContentsOfURL:imageURL];
     
-    self.view.wantsLayer = YES;
-    self.view.layer.contents = image;
+    [self.view setWantsLayer:YES];
+    [self.view.layer setContents:image];
     
     [self viewDidLoad];
 }
@@ -124,45 +124,7 @@
     [clickArea setTransparent:YES];
     [clickArea setBordered:NO];
     
-    NSString *title;
-    
-    int itemType = [[item objectForKey:@"type"] intValue];
-    if (itemType == LAUNCHPAD_TYPE_APP) {
-        NSDictionary *app = [launchpadHelper getAppFromItem:item];
-        title = [app objectForKey:@"title"];
-        
-        itemView = [[NSImageView alloc] initWithFrame:NSMakeRect(0, textViewHeight, width, height - textViewHeight)];
-        NSImage *image = [[NSImage alloc] initWithData:[launchpadHelper getImageDataFromItem: item]];
-        [(NSImageView *)itemView setImage: image];
-        
-        [clickArea setAction:@selector(appClickAction:)];
-        
-    } else if(itemType == LAUNCHPAD_TYPE_GROUP) {
-        NSDictionary *group = [launchpadHelper getGroupFromItem:item];
-        title = [group objectForKey:@"title"];
-        
-        NSArray *insideItems = [launchpadHelper getContentFromGroup:group];
-        
-        itemView = [[NSView alloc] initWithFrame:NSMakeRect(0, textViewHeight, width, height - textViewHeight)];
-        
-        int c = (int)[insideItems count];
-        if (c > 9) // No more than 9 previews for a group
-            c = 9;
-        
-        int subwidth = width * 0.16;
-        
-        for (int i = 0; i < c; i++) {
-            NSImageView *imageView = [[NSImageView alloc] initWithFrame:NSMakeRect(width * 0.23 + subwidth * 1.2 * (i % 3), height * 0.1 + subwidth * 1.2 * ((8 - i) / 3), subwidth, subwidth)];
-            NSImage *image = [[NSImage alloc] initWithData:[launchpadHelper getImageDataFromItem: [insideItems objectAtIndex:i]]];
-            [imageView setImage: image];
-            
-            [itemView addSubview:imageView];
-        }
-
-    }
-    
     NSTextView *titleView = [[NSTextView alloc] initWithFrame:NSMakeRect(0, 0, width, textViewHeight)];
-    [titleView setString:title];
     [titleView setAlignment:NSCenterTextAlignment];
     [titleView setBackgroundColor:[NSColor clearColor]];
     [titleView setTextColor:[NSColor whiteColor]];
@@ -173,6 +135,52 @@
     [textShadow setShadowOffset:NSMakeSize(-0.7, 0.7)];
     [textShadow setShadowBlurRadius:1];
     [titleView setShadow:textShadow];
+    
+    int itemType = [[item objectForKey:@"type"] intValue];
+    if (itemType == LAUNCHPAD_TYPE_APP) {
+        NSDictionary *app = [launchpadHelper getAppFromItem:item];
+        [titleView setString: [app objectForKey:@"title"]];
+        
+        itemView = [[NSImageView alloc] initWithFrame:NSMakeRect(0, textViewHeight, width, height - textViewHeight)];
+        NSImage *image = [[NSImage alloc] initWithData:[launchpadHelper getImageDataFromItem: item]];
+        [(NSImageView *)itemView setImage: image];
+        
+        [clickArea setAction:@selector(appClickAction:)];
+        
+    } else if(itemType == LAUNCHPAD_TYPE_GROUP) {
+        NSDictionary *group = [launchpadHelper getGroupFromItem:item];
+        [titleView setString: [group objectForKey:@"title"]];
+        
+        NSArray *insideItems = [launchpadHelper getContentFromGroup:group];
+        
+        itemView = [[NSView alloc] initWithFrame:NSMakeRect((width - (height - textViewHeight))/ 2, textViewHeight, height - textViewHeight, height - textViewHeight)];
+        [itemView setWantsLayer:YES];
+        [itemView.layer setBackgroundColor:CGColorCreateGenericGray(1.0, 1.0)];
+        [itemView.layer setCornerRadius:20.0];
+        
+        NSShadow *boxShadow = [[NSShadow alloc] init];
+        [boxShadow setShadowColor:[NSColor blackColor]];
+        [boxShadow setShadowOffset:NSMakeSize(-0.3, -0.3)];
+        [boxShadow setShadowBlurRadius:3];
+        
+        [itemView setShadow:boxShadow];
+        
+        
+        int c = (int)[insideItems count];
+        if (c > 9) // No more than 9 previews for a group
+            c = 9;
+        
+        int subwidth = width * 0.16;
+        
+        for (int i = 0; i < c; i++) {
+            NSImageView *imageView = [[NSImageView alloc] initWithFrame:NSMakeRect(width * 0.08 + subwidth * 1.2 * (i % 3), height * 0.1 + subwidth * 1.2 * ((8 - i) / 3), subwidth, subwidth)];
+            NSImage *image = [[NSImage alloc] initWithData:[launchpadHelper getImageDataFromItem: [insideItems objectAtIndex:i]]];
+            [imageView setImage: image];
+            
+            [itemView addSubview:imageView];
+        }
+
+    }
     
     [appView addSubview:titleView];
     [appView addSubview:itemView];

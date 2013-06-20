@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "LaunchpadDatabaseHelper.h"
 #import "ScrollView.h"
+#import "GroupView.h"
 
 #define GRID_APP_HORIZONTALY 7
 #define GRID_APP_VERTICALY 5
