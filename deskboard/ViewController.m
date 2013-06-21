@@ -92,7 +92,7 @@
     
     [self.view addSubview:scrollView];
     
-    [self.window makeFirstResponder:searchField];
+    //[self.window makeFirstResponder:searchField];
     
     [self documentViewDidLoad];
 }
