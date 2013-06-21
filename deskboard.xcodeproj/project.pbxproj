@@ -49,12 +49,12 @@
 		FB1A3645176B9BE00011BE33 /* ZIMSqlUpdateStatement.m in Sources */ = {isa = PBXBuildFile; fileRef = FB1A3499176B9BDF0011BE33 /* ZIMSqlUpdateStatement.m */; };
 		FB1A3646176B9BE00011BE33 /* ZIMSqlUpsertStatement.m in Sources */ = {isa = PBXBuildFile; fileRef = FB1A349B176B9BDF0011BE33 /* ZIMSqlUpsertStatement.m */; };
 		FB1A3647176B9BE00011BE33 /* ZIMMessageDigest.m in Sources */ = {isa = PBXBuildFile; fileRef = FB1A349E176B9BDF0011BE33 /* ZIMMessageDigest.m */; };
-		FB1A364F176B9C7D0011BE33 /* LaunchpadDatabaseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = FB1A364E176B9C7D0011BE33 /* LaunchpadDatabaseHelper.m */; };
-		FB5E370F1772589800FB7CD3 /* ScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5E370E1772589800FB7CD3 /* ScrollView.m */; };
+		FB1A364F176B9C7D0011BE33 /* LaunchpadDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = FB1A364E176B9C7D0011BE33 /* LaunchpadDatabase.m */; };
 		FB5E3714177291DD00FB7CD3 /* Launchpad.icns in Resources */ = {isa = PBXBuildFile; fileRef = FB5E3713177291DC00FB7CD3 /* Launchpad.icns */; };
 		FB5E37191773250A00FB7CD3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB5E37181773250A00FB7CD3 /* QuartzCore.framework */; };
 		FB5E372F1773472E00FB7CD3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = FB5E372C1773472E00FB7CD3 /* README.md */; };
 		FB5E37301773472E00FB7CD3 /* VDKQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5E372E1773472E00FB7CD3 /* VDKQueue.m */; };
+		FB9E7F4A17749B9E00E17994 /* ScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9E7F4917749B9E00E17994 /* ScrollView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -151,15 +151,15 @@
 		FB1A349B176B9BDF0011BE33 /* ZIMSqlUpsertStatement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZIMSqlUpsertStatement.m; sourceTree = "<group>"; };
 		FB1A349D176B9BDF0011BE33 /* ZIMMessageDigest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZIMMessageDigest.h; sourceTree = "<group>"; };
 		FB1A349E176B9BDF0011BE33 /* ZIMMessageDigest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZIMMessageDigest.m; sourceTree = "<group>"; };
-		FB1A364D176B9C7D0011BE33 /* LaunchpadDatabaseHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchpadDatabaseHelper.h; sourceTree = "<group>"; };
-		FB1A364E176B9C7D0011BE33 /* LaunchpadDatabaseHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchpadDatabaseHelper.m; sourceTree = "<group>"; };
-		FB5E370D1772589800FB7CD3 /* ScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollView.h; sourceTree = "<group>"; };
-		FB5E370E1772589800FB7CD3 /* ScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollView.m; sourceTree = "<group>"; };
+		FB1A364D176B9C7D0011BE33 /* LaunchpadDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchpadDatabase.h; sourceTree = "<group>"; };
+		FB1A364E176B9C7D0011BE33 /* LaunchpadDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchpadDatabase.m; sourceTree = "<group>"; };
 		FB5E3713177291DC00FB7CD3 /* Launchpad.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Launchpad.icns; sourceTree = "<group>"; };
 		FB5E37181773250A00FB7CD3 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		FB5E372C1773472E00FB7CD3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		FB5E372D1773472E00FB7CD3 /* VDKQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VDKQueue.h; sourceTree = "<group>"; };
 		FB5E372E1773472E00FB7CD3 /* VDKQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VDKQueue.m; sourceTree = "<group>"; };
+		FB9E7F4817749B9A00E17994 /* ScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScrollView.h; sourceTree = "<group>"; };
+		FB9E7F4917749B9E00E17994 /* ScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,7 +179,7 @@
 		FB043333176B247C002EA25D = {
 			isa = PBXGroup;
 			children = (
-				FB043348176B247C002EA25D /* Classes */,
+				FB1CBFA517749A1900CD606A /* Classes */,
 				FB5E373117734BBC00FB7CD3 /* Resources */,
 				FB043349176B247C002EA25D /* Supporting Files */,
 				FB1A364B176B9BE70011BE33 /* Libraries */,
@@ -217,20 +217,13 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
-		FB043348176B247C002EA25D /* Classes */ = {
+		FB043348176B247C002EA25D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				FB043354176B247C002EA25D /* AppDelegate.h */,
-				FB043355176B247C002EA25D /* AppDelegate.m */,
 				FB043371176B3D59002EA25D /* ViewController.h */,
 				FB043372176B3D59002EA25D /* ViewController.m */,
-				FB1A364D176B9C7D0011BE33 /* LaunchpadDatabaseHelper.h */,
-				FB1A364E176B9C7D0011BE33 /* LaunchpadDatabaseHelper.m */,
-				FB5E370D1772589800FB7CD3 /* ScrollView.h */,
-				FB5E370E1772589800FB7CD3 /* ScrollView.m */,
 			);
-			name = Classes;
-			path = deskboard;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		FB043349176B247C002EA25D /* Supporting Files */ = {
@@ -242,8 +235,7 @@
 				FB043350176B247C002EA25D /* Deskboard-Prefix.pch */,
 				FB043351176B247C002EA25D /* Credits.rtf */,
 			);
-			name = "Supporting Files";
-			path = deskboard;
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		FB1A344D176B9BDF0011BE33 /* db */ = {
@@ -255,8 +247,7 @@
 				FB1A3451176B9BDF0011BE33 /* ZIMDbConnectionPool.m */,
 				FB1A3452176B9BDF0011BE33 /* ZIMDbSdk.h */,
 			);
-			name = db;
-			path = src/db;
+			path = db;
 			sourceTree = "<group>";
 		};
 		FB1A3453176B9BDF0011BE33 /* ext */ = {
@@ -265,8 +256,7 @@
 				FB1A3454176B9BDF0011BE33 /* NSString+ZIMString.h */,
 				FB1A3455176B9BDF0011BE33 /* NSString+ZIMString.m */,
 			);
-			name = ext;
-			path = src/ext;
+			path = ext;
 			sourceTree = "<group>";
 		};
 		FB1A3456176B9BDF0011BE33 /* orm */ = {
@@ -279,8 +269,7 @@
 				FB1A345B176B9BDF0011BE33 /* ZIMOrmSelectStatement.h */,
 				FB1A345C176B9BDF0011BE33 /* ZIMOrmSelectStatement.m */,
 			);
-			name = orm;
-			path = src/orm;
+			path = orm;
 			sourceTree = "<group>";
 		};
 		FB1A345D176B9BDF0011BE33 /* sql */ = {
@@ -349,8 +338,7 @@
 				FB1A349A176B9BDF0011BE33 /* ZIMSqlUpsertStatement.h */,
 				FB1A349B176B9BDF0011BE33 /* ZIMSqlUpsertStatement.m */,
 			);
-			name = sql;
-			path = src/sql;
+			path = sql;
 			sourceTree = "<group>";
 		};
 		FB1A349C176B9BDF0011BE33 /* util */ = {
@@ -359,8 +347,7 @@
 				FB1A349D176B9BDF0011BE33 /* ZIMMessageDigest.h */,
 				FB1A349E176B9BDF0011BE33 /* ZIMMessageDigest.m */,
 			);
-			name = util;
-			path = src/util;
+			path = util;
 			sourceTree = "<group>";
 		};
 		FB1A364B176B9BE70011BE33 /* Libraries */ = {
@@ -369,8 +356,8 @@
 				FB5E372B1773472E00FB7CD3 /* VDKQueue */,
 				FB1A364C176B9BF80011BE33 /* SQL Query Builder */,
 			);
-			name = Libraries;
-			sourceTree = "<group>";
+			path = Libraries;
+			sourceTree = SOURCE_ROOT;
 		};
 		FB1A364C176B9BF80011BE33 /* SQL Query Builder */ = {
 			isa = PBXGroup;
@@ -382,8 +369,54 @@
 				FB1A349C176B9BDF0011BE33 /* util */,
 				FB1A344B176B9BDF0011BE33 /* README.md */,
 			);
-			name = "SQL Query Builder";
+			path = "SQL Query Builder";
 			sourceTree = "<group>";
+		};
+		FB1CBFA11774994F00CD606A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FB1A364D176B9C7D0011BE33 /* LaunchpadDatabase.h */,
+				FB1A364E176B9C7D0011BE33 /* LaunchpadDatabase.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		FB1CBFA21774996B00CD606A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FB9E7F4817749B9A00E17994 /* ScrollView.h */,
+				FB9E7F4917749B9E00E17994 /* ScrollView.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		FB1CBFA3177499D700CD606A /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				FB043354176B247C002EA25D /* AppDelegate.h */,
+				FB043355176B247C002EA25D /* AppDelegate.m */,
+			);
+			path = AppDelegate;
+			sourceTree = "<group>";
+		};
+		FB1CBFA4177499EE00CD606A /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		FB1CBFA517749A1900CD606A /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				FB1CBFA3177499D700CD606A /* AppDelegate */,
+				FB043348176B247C002EA25D /* Controllers */,
+				FB1CBFA11774994F00CD606A /* Models */,
+				FB1CBFA21774996B00CD606A /* Views */,
+				FB1CBFA4177499EE00CD606A /* Helpers */,
+			);
+			path = Classes;
+			sourceTree = SOURCE_ROOT;
 		};
 		FB5E372B1773472E00FB7CD3 /* VDKQueue */ = {
 			isa = PBXGroup;
@@ -400,7 +433,7 @@
 			children = (
 				FB5E3713177291DC00FB7CD3 /* Launchpad.icns */,
 			);
-			name = Resources;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -506,9 +539,9 @@
 				FB1A3645176B9BE00011BE33 /* ZIMSqlUpdateStatement.m in Sources */,
 				FB1A3646176B9BE00011BE33 /* ZIMSqlUpsertStatement.m in Sources */,
 				FB1A3647176B9BE00011BE33 /* ZIMMessageDigest.m in Sources */,
-				FB1A364F176B9C7D0011BE33 /* LaunchpadDatabaseHelper.m in Sources */,
-				FB5E370F1772589800FB7CD3 /* ScrollView.m in Sources */,
+				FB1A364F176B9C7D0011BE33 /* LaunchpadDatabase.m in Sources */,
 				FB5E37301773472E00FB7CD3 /* VDKQueue.m in Sources */,
+				FB9E7F4A17749B9E00E17994 /* ScrollView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -592,8 +625,8 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "deskboard/Deskboard-Prefix.pch";
-				INFOPLIST_FILE = "deskboard/Deskboard-Info.plist";
+				GCC_PREFIX_HEADER = "Supporting Files/Deskboard-Prefix.pch";
+				INFOPLIST_FILE = "Supporting Files/Deskboard-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = Deskboard;
 				WRAPPER_EXTENSION = app;
@@ -605,8 +638,8 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "deskboard/Deskboard-Prefix.pch";
-				INFOPLIST_FILE = "deskboard/Deskboard-Info.plist";
+				GCC_PREFIX_HEADER = "Supporting Files/Deskboard-Prefix.pch";
+				INFOPLIST_FILE = "Supporting Files/Deskboard-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = Deskboard;
 				WRAPPER_EXTENSION = app;

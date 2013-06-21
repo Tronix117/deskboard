@@ -1,14 +1,14 @@
 //
-//  LaunchpadDatabaseHelper.m
+//  LaunchpadDatabase.m
 //  Deskboard
 //
 //  Created by Jeremy Trufier on 14/06/13.
 //  Copyright (c) 2013 Jeremy Trufier. All rights reserved.
 //
 
-#import "LaunchpadDatabaseHelper.h"
+#import "LaunchpadDatabase.h"
 
-@implementation LaunchpadDatabaseHelper
+@implementation LaunchpadDatabase
 
 - (id)init {
     self = [super init];

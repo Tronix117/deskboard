@@ -60,7 +60,7 @@
 
 -(void)viewWillLoad {
     // Initializing the model in order to query the database
-    launchpadHelper = [[LaunchpadDatabaseHelper alloc] init];
+    launchpadHelper = [[LaunchpadDatabase alloc] init];
     
     // Get notification when the dock database file is modified (see in LaunchpadDatabaseHelper)
     [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(refreshView) name:@"VDKQueueFileWrittenToNotification" object:nil];

@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "LaunchpadDatabaseHelper.h"
+#import "LaunchpadDatabase.h"
 #import "ScrollView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "VDKQueue.h"
@@ -21,7 +21,7 @@
 
 @interface ViewController : NSViewController{
     int currentPage;
-    LaunchpadDatabaseHelper *launchpadHelper;
+    LaunchpadDatabase *launchpadHelper;
     NSView * documentView;
     ScrollView * scrollView;
     //NSImageView *backgroundView;

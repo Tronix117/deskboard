@@ -1,5 +1,5 @@
 //
-//  LaunchpadDatabaseHelper.h
+//  LaunchpadDatabase.h
 //  Deskboard
 //
 //  Created by Jeremy Trufier on 14/06/13.
@@ -15,7 +15,7 @@
 #define LAUNCHPAD_TYPE_PAGE 3
 #define LAUNCHPAD_TYPE_APP 4
 
-@interface LaunchpadDatabaseHelper : NSObject {
+@interface LaunchpadDatabase : NSObject {
 @protected
     ZIMDbConnection *_database;
     VDKQueue *_vdkQueue;
