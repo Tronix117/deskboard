@@ -19,7 +19,10 @@
     //[window setOpaque:NO];
     //[window setLevel:kCGDockWindowLevel - 1];
     
-    [window setLevel:kCGDesktopWindowLevel + 20];
+    // Desktop do not need to be disabled, but there will be a delay on space changing, in the deskboard display, and sometimes desktop icons can come above
+    //[window setLevel:kCGDesktopWindowLevel + 20];
+    
+    // But desktop need to be disabled for this setting
     [window setLevel:kCGDesktopWindowLevel];
     [window setCollectionBehavior: NSWindowCollectionBehaviorStationary | NSWindowCollectionBehaviorCanJoinAllSpaces]; // NSWindowCollectionBehaviorFullScreenPrimary
     [window setHidesOnDeactivate: NO];

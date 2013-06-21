@@ -14,10 +14,16 @@
     self = [super init];
     
     if (self) {
+        // Looking for user library, and path to the Dock settings
         NSString *dockApplicationSupportPath = [NSString stringWithFormat:@"%@/Application Support/Dock", [NSSearchPathForDirectoriesInDomains( NSLibraryDirectory, NSUserDomainMask, YES ) objectAtIndex:0]];
+        
+        // Getting all files in this path
         NSArray *dirFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:dockApplicationSupportPath error:nil];
+        
+        // Getting the dock/launchpad database (the only *.db file there)
         NSArray *dbFiles = [dirFiles filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self ENDSWITH '.db'"]];
         
+        // Creating a database config dynamicaly, and open the connection to the database
         NSDictionary *dbConfig = [[NSDictionary alloc] initWithObjectsAndKeys:
                                     [dbFiles objectAtIndex:0], @"database",
                                     dockApplicationSupportPath, @"databaseLocation",
@@ -25,6 +31,7 @@
                                     @"SQLite", @"type", nil];
         _database = [[ZIMDbConnection alloc] initWithDictionary: dbConfig withMultithreadingSupport:NO];
         
+        // Watch for the database file, for any change and then post a notification (see ViewController where they are handles)
         _vdkQueue = [[VDKQueue alloc] init];
         [_vdkQueue addPath:dockApplicationSupportPath notifyingAbout:VDKQueueNotifyAboutWrite];
         [_vdkQueue setAlwaysPostNotifications:YES];

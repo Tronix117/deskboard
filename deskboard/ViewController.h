@@ -29,7 +29,7 @@
     BOOL isScrolling;
     NSRect screenFrame;
     NSTextView * pagingView;
-    NSSearchField * searchField;
+    //NSSearchField * searchField;
 }
 
 @property(assign) NSWindow * window;
