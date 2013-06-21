@@ -14,6 +14,10 @@
 
 #define GRID_APP_HORIZONTALY 7
 #define GRID_APP_VERTICALY 5
+#define GRID_APP_SPACING_SCALE 0.3
+#define GRID_APP_TITLE_FONT_SIZE 13
+#define GRID_GROUP_BORDER_SIZE 6.0
+#define GRID_GROUP_BORDER_RADIUS 20.0
 
 @interface ViewController : NSViewController{
     int currentPage;
